@@ -84,7 +84,6 @@ func process_args(sa * sp_args) {
 		os.Exit(5)
 	}
 
-	fmt.Println(flag.Args()[0])
 	if len(flag.Args()) == 1 {
 		_, err := os.Stat(flag.Args()[0])
 		/* check if file exists */
