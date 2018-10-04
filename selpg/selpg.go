@@ -35,12 +35,7 @@ func main() {
 }
 
 func process_args(sa * sp_args) {
-	/* check the command-line arguments for validity */
-	if len(os.Args) < 3 {	/* Not enough args, minimum command is "selpg -sstartpage -eend_page"  */
-		fmt.Fprintf(os.Stderr, "\n%s: not enough arguments\n", progname)
-		flag.Usage()
-		os.Exit(1)
-	}
+
 
 	flag.IntVarP(&sa.start_page,"start",  "s", -1, "start page(>1)")
 	flag.IntVarP(&sa.end_page,"end", "e",  -1, "end page(>=start_page)")
@@ -51,12 +46,18 @@ func process_args(sa * sp_args) {
 
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr,
-			"USAGE: \n%s -s start_page -e end_page [ -f | -llines_per_page ]" + 
-			" [ -ddest ] [ in_filename ]\n", pr测试
+			"USAGE: \n%s -s start_page -e end_page [ -f | -l lines_per_page ]" + 
+			" [ -d dest ] [ in_filename ]\n", )
 		flag.PrintDefaults()
 	}
 	flag.Parse()
 	
+	/* check the command-line arguments for validity */
+	if len(os.Args) < 3 {	/* Not enough args, minimum command is "selpg -sstartpage -eend_page"  */
+		fmt.Fprintf(os.Stderr, "\n%s: not enough arguments\n", progname)
+		flag.Usage()
+		os.Exit(1)
+	}
 
 	/* handle 1st arg - start page */
 	if os.Args[1] != "-s" {
@@ -83,7 +84,7 @@ func process_args(sa * sp_args) {
 		os.Exit(5)
 	}
 
-
+	fmt.Println(flag.Args()[0])
 	if len(flag.Args()) == 1 {
 		_, err := os.Stat(flag.Args()[0])
 		/* check if file exists */
@@ -95,7 +96,7 @@ func process_args(sa * sp_args) {
 		sa.in_filename = flag.Args()[0]
 	}
 
-	fmt.Println(sa)
+	
 }
 
 func process_input(sa sp_args) {
