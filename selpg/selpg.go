@@ -40,7 +40,7 @@ func process_args(sa * sp_args) {
 	flag.IntVarP(&sa.start_page,"start",  "s", -1, "start page(>1)")
 	flag.IntVarP(&sa.end_page,"end", "e",  -1, "end page(>=start_page)")
 	flag.IntVarP(&sa.page_len,"len", "l", 72, "page len")
-	flag.StringVarP(&sa.page_type,"type", "f", "l", "'l' for lines-delimited, 'f' for form-feed-delimited. default is 'I'")
+	flag.StringVarP(&sa.page_type,"type", "f", "l", "'l' for lines-delimited, 'f' for form-feed-delimited. default is 'l'")
 	flag.Lookup("type").NoOptDefVal = "f"
 	flag.StringVarP(&sa.print_dest,"dest", "d", "", "print dest")
 
@@ -123,6 +123,7 @@ func process_input(sa sp_args) {
 	if len(sa.print_dest) == 0 {
 		fout = os.Stdout
 	} else {
+		
 		cmd = exec.Command("cat")
 		//没法测试lp，用cat代替测试
 		//cmd = exec.COmmand("lp", "-d", sa.print_dest)
